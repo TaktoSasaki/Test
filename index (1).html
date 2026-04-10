@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ログイン | Internship Portal Mock</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#" aria-label="トップへ戻る">
+          <span class="brand-mark">IT</span>
+          <span class="brand-text">Internship Portal</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="global-nav">
+          <span></span><span></span><span></span>
+          <span class="sr-only">メニューを開く</span>
+        </button>
+      </div>
+      <nav id="global-nav" class="global-nav" aria-label="グローバルナビゲーション">
+        <a href="#login-title">ログイン</a>
+        <a href="#terms">会員規約</a>
+        <a href="#help">ID・パスワードをお忘れの方</a>
+        <a href="#register">登録はこちら</a>
+        <a href="#env">利用環境について</a>
+      </nav>
+    </header>
+
+    <main class="main-area">
+      <section class="hero-card">
+        <h1 id="login-title">ログイン</h1>
+        <p class="lead">会員規約を確認し、同意の上ログインしてください。</p>
+
+        <div id="terms" class="terms-box" tabindex="0" aria-label="会員規約">
+          <h2>テスト用会員規約</h2>
+          <p>
+            本ページは、アプリケーションの動作確認を目的としたモックアップです。実在の採用サービス・会員情報・認証基盤とは接続していません。
+            入力されたID番号およびパスワードは、このブラウザ内でのみ疑似的に処理されます。
+          </p>
+          <p>
+            利用者は、本モックアップを検証用途に限って利用するものとし、第三者の実アカウント情報や本物の資格情報を入力しないでください。
+            また、本モックアップの画面遷移・エラーメッセージ・セッション表現は、あくまでテストのための簡易実装です。
+          </p>
+          <p>
+            画面テストの都合上、URLパラメータによる初期値投入、Enterキーでの送信、チェックボックス必須判定、疑似ダッシュボードへの遷移などを実装しています。
+            ただし、認証強度・CSRF対策・実運用向け監査ログなどは含みません。
+          </p>
+          <p>
+            送信成功条件はデフォルトでは「ID番号・パスワードがともに1文字以上」であり、より厳密な挙動が必要な場合は script.js を編集してください。
+          </p>
+        </div>
+      </section>
+
+      <section class="login-grid">
+        <article class="panel">
+          <div class="panel-head">
+            <h2>オリジナルID・パスワードでログイン</h2>
+            <p>UIテスト向けのダミーログインです。</p>
+          </div>
+
+          <form id="mock-login-form" class="login-form" novalidate>
+            <label class="field">
+              <span>ID番号</span>
+              <input
+                type="text"
+                id="loginId"
+                name="login_id"
+                inputmode="text"
+                autocomplete="username"
+                placeholder="例）TARO2027"
+                data-testid="login-id"
+              />
+            </label>
+
+            <label class="field">
+              <span>パスワード</span>
+              <div class="password-wrap">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  autocomplete="current-password"
+                  placeholder="パスワードを入力"
+                  data-testid="login-password"
+                />
+                <button id="togglePassword" class="ghost-btn" type="button" aria-label="パスワード表示切替">表示</button>
+              </div>
+            </label>
+
+            <label class="agree-row">
+              <input type="checkbox" id="agree" name="agree" data-testid="agree-checkbox" />
+              <span>規約に同意する</span>
+            </label>
+
+            <div id="formMessage" class="form-message" aria-live="polite"></div>
+
+            <button type="submit" class="primary-btn" data-testid="login-submit">
+              規約に同意してログイン
+            </button>
+          </form>
+
+          <div id="help" class="inline-links">
+            <a href="#">ID・パスワードをお忘れの方</a>
+            <a href="#register">初めての方はこちら</a>
+          </div>
+        </article>
+
+        <article class="panel alt-panel">
+          <div class="panel-head">
+            <h2>外部会員ID・パスワードでログイン</h2>
+            <p>別導線のボタン押下テストに使えるダミー領域です。</p>
+          </div>
+
+          <p class="alt-copy">
+            外部サービス経由で登録された方も、下記ボタンから再手続きすると外部会員ID・パスワードでログインできる想定です。
+          </p>
+
+          <button type="button" id="externalLogin" class="secondary-btn" data-testid="external-login">
+            外部IDでログイン
+          </button>
+
+          <div class="external-note">
+            <strong>テスト用ヒント:</strong>
+            <code>?id=test001&amp;password=pass123</code> をURL末尾に付けると、自動で入力欄へ初期値を投入できます。
+          </div>
+        </article>
+      </section>
+
+      <section id="register" class="info-panel">
+        <h2>新規登録（モック）</h2>
+        <p>このボタンはダイアログ表示のみ行います。本登録処理は実装していません。</p>
+        <button id="openRegisterDialog" type="button" class="outline-btn">登録はこちら</button>
+      </section>
+
+      <section id="env" class="security-note">
+        <p>このページはテスト用のモックアップです。実際のSSL証明書・認証連携は行っていません。</p>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="registerDialog" class="register-dialog">
+    <form method="dialog" class="dialog-body">
+      <h2>新規登録モック</h2>
+      <p>ここに仮登録フォームやメール送信テスト導線を追加できます。</p>
+      <button class="primary-btn" value="close">閉じる</button>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>

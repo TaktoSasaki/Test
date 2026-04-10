@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>マイページ | Internship Portal Mock</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="dashboard-shell">
+    <section class="dashboard-card">
+      <div class="dashboard-head">
+        <span class="status-pill">ログイン成功</span>
+        <h1>マイページ（モック）</h1>
+        <p id="welcomeMessage">ようこそ。</p>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="mini-card">
+          <h2>現在の状態</h2>
+          <p>この画面はダミーです。E2Eテスト・画面遷移確認・セッション表現の確認に使えます。</p>
+        </article>
+        <article class="mini-card">
+          <h2>保存内容</h2>
+          <pre id="sessionDump" class="session-dump"></pre>
+        </article>
+      </div>
+
+      <div class="dashboard-actions">
+        <a href="index.html" class="outline-btn">ログイン画面へ戻る</a>
+        <button id="logoutBtn" class="primary-btn" type="button">ログアウト（モック）</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const raw = localStorage.getItem('mockPortalSession');
+    const welcome = document.getElementById('welcomeMessage');
+    const dump = document.getElementById('sessionDump');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    if (raw) {
+      try {
+        const session = JSON.parse(raw);
+        welcome.textContent = `${session.loginId} さんとしてログイン中です。`;
+        dump.textContent = JSON.stringify(session, null, 2);
+      } catch {
+        dump.textContent = 'セッションデータの読み込みに失敗しました。';
+      }
+    } else {
+      welcome.textContent = 'セッションは存在しません。';
+      dump.textContent = '{}';
+    }
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('mockPortalSession');
+      location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
